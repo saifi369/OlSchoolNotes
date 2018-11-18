@@ -9,7 +9,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        vectorDrawables.useSupportLibrary=true
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -32,6 +32,6 @@ dependencies {
     annotationProcessor "android.arch.persistence.room:compiler:$room_version"
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
 }
-
-
