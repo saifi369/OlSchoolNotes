@@ -11,11 +11,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 
+import com.saifi369.olschoolnotes.model.NoteEntity;
+import com.saifi369.olschoolnotes.model.NotesAdapter;
+import com.saifi369.olschoolnotes.utils.SampleDataProvider;
+
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
+
+    private List<NoteEntity> mNotesList;
 
     @BindView(R.id.notes_recyclerview)
     RecyclerView mRecyclerView;
@@ -36,6 +44,14 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         initRecyclerView();
 
+        mNotesList=SampleDataProvider.getSampleData();
+        showData();
+
+    }
+
+    private void showData() {
+        NotesAdapter notesAdapter=new NotesAdapter(this,mNotesList);
+        mRecyclerView.setAdapter(notesAdapter);
     }
 
     private void initRecyclerView() {

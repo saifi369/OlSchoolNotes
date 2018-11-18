@@ -10,8 +10,8 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/notes_recyclerview"
-        android:layout_width="368dp"
-        android:layout_height="495dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:focusable="true"
         android:clickable="true"
         android:focusableInTouchMode="true"
