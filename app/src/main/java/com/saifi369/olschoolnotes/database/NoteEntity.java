@@ -1,16 +1,25 @@
-package com.saifi369.olschoolnotes.model;
+package com.saifi369.olschoolnotes.database;
+
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
 
 import java.util.Date;
 
+
+@Entity(tableName = "notes")
 public class NoteEntity {
 
-   private int id;
-   private Date date;
-   private String text;
+    @PrimaryKey(autoGenerate = true)
+    private int id;
 
+    private Date date;
+    private String text;
+
+    @Ignore
     public NoteEntity() {
     }
-
+    @Ignore
     public NoteEntity(Date date, String text) {
         this.date = date;
         this.text = text;

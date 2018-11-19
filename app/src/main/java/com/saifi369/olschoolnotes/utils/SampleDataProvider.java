@@ -1,6 +1,6 @@
 package com.saifi369.olschoolnotes.utils;
 
-import com.saifi369.olschoolnotes.model.NoteEntity;
+import com.saifi369.olschoolnotes.database.NoteEntity;
 
 import java.util.ArrayList;
 import java.util.Calendar;

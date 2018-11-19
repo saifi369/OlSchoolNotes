@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.saifi369.olschoolnotes.R;
+import com.saifi369.olschoolnotes.database.NoteEntity;
 
 import java.util.List;
 
