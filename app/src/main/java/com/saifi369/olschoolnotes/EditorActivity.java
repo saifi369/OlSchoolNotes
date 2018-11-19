@@ -105,5 +105,6 @@ public class EditorActivity extends AppCompatActivity {
 
     private void saveAndExit() {
         mViewModel.saveAndExit(mEditText.getText().toString());
+        finish();
     }
 }
