@@ -13,6 +13,7 @@ import java.util.concurrent.Executors;
 public class AppRepository {
 
 
+    public static final String TAG = "MyTag";
     private static AppRepository ourInstance;
     private AppDatabase mDatabase;
 
@@ -41,5 +42,15 @@ public class AppRepository {
     }
     private LiveData<List<NoteEntity>> getAllNotes(){
        return mDatabase.notesDao().getAllNotes();
+    }
+
+    public void deleteAllData() {
+        mExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                int notes = mDatabase.notesDao().deleteAllNotes();
+                Log.d(TAG, "run: Noted Deleted: "+notes);
+            }
+        });
     }
 }
