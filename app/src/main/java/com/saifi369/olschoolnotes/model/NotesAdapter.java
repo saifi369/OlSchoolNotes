@@ -1,6 +1,7 @@
 package com.saifi369.olschoolnotes.model;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.saifi369.olschoolnotes.EditorActivity;
 import com.saifi369.olschoolnotes.R;
 import com.saifi369.olschoolnotes.database.NoteEntity;
 
@@ -16,6 +18,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.saifi369.olschoolnotes.utils.Constants.NOTE_ID_KEY;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder> {
 
@@ -39,8 +43,17 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        NoteEntity noteEntity=mDataList.get(position);
+        final NoteEntity noteEntity=mDataList.get(position);
         holder.textView.setText(noteEntity.getText());
+
+        holder.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(mContext,EditorActivity.class);
+                intent.putExtra(NOTE_ID_KEY,noteEntity.getId());
+                mContext.startActivity(intent);
+            }
+        });
 
     }
 
