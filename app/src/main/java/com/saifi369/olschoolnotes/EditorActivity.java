@@ -3,6 +3,8 @@ package com.saifi369.olschoolnotes;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -20,12 +22,15 @@ import com.saifi369.olschoolnotes.viewmodels.EditorViewModel;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.saifi369.olschoolnotes.utils.Constants.EDITING_KEY;
+
 public class EditorActivity extends AppCompatActivity {
 
     private EditorViewModel mViewModel;
     @BindView(R.id.edit_note_text)
     TextView mEditText;
     private boolean mNewNote;
+    private boolean isEditing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +40,21 @@ public class EditorActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_check);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         ButterKnife.bind(this);
 
+        if (savedInstanceState != null) {
+            isEditing=savedInstanceState.getBoolean(Constants.EDITING_KEY);
+        }
+
         initViewModel();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+
+        outState.putBoolean(EDITING_KEY,true);
+        super.onSaveInstanceState(outState);
     }
 
     private void initViewModel() {
@@ -49,7 +66,7 @@ public class EditorActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable NoteEntity noteEntity) {
 
-                if (noteEntity != null) {
+                if (noteEntity != null && !isEditing) {
                     mEditText.setText(noteEntity.getText());
                 }
             }
