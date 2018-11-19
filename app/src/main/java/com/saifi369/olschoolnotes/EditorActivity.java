@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ public class EditorActivity extends AppCompatActivity {
     private EditorViewModel mViewModel;
     @BindView(R.id.edit_note_text)
     TextView mEditText;
+    private boolean mNewNote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +59,24 @@ public class EditorActivity extends AppCompatActivity {
 
         if (bundle == null) {
             setTitle("New Note");
+            mNewNote=true;
         }else{
             setTitle("Edit Note");
             int noteId=bundle.getInt(Constants.NOTE_ID_KEY);
             mViewModel.loadNote(noteId);
+            mNewNote=false;
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        if(!mNewNote){
+            getMenuInflater().inflate(R.menu.menu_editor,menu);
+            return true;
+        }
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -69,9 +84,17 @@ public class EditorActivity extends AppCompatActivity {
 
         if(item.getItemId() == android.R.id.home){
             saveAndExit();
+            return true;
+        }else if(item.getItemId() == R.id.action_delete_note){
+            deleteNote();
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void deleteNote() {
+        mViewModel.deleteNote();
     }
 
     @Override
