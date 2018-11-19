@@ -12,7 +12,7 @@ import java.util.List;
 
 public class EditorViewModel extends AndroidViewModel {
 
-    public MutableLiveData<NoteEntity> mLiveNote;
+    public MutableLiveData<NoteEntity> mLiveNote = new MutableLiveData<>();
 
     private AppRepository mRepository;
 
