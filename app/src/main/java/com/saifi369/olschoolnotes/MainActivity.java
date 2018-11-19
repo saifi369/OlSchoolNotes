@@ -9,8 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.saifi369.olschoolnotes.database.NoteEntity;
 import com.saifi369.olschoolnotes.model.NotesAdapter;
@@ -84,6 +86,26 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.hasFixedSize();
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
+
+        ItemTouchHelper itemTouchHelper=new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                deleteNote(mNotesAdapter.getNoteAtPosition(viewHolder.getAdapterPosition()));
+            }
+        });
+
+        itemTouchHelper.attachToRecyclerView(mRecyclerView);
+
+    }
+
+    private void deleteNote(NoteEntity noteEntity) {
+        mViewModel.deleteNote(noteEntity);
+        Toast.makeText(this, "Note Deleted", Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -30,4 +30,8 @@ public class ListActivityViewModel extends AndroidViewModel {
     public void deleteAllData() {
         mRepository.deleteAllData();
     }
+
+    public void deleteNote(NoteEntity noteEntity) {
+        mRepository.deleteNote(noteEntity);
+    }
 }
