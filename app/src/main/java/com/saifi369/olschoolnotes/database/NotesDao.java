@@ -1,5 +1,6 @@
 package com.saifi369.olschoolnotes.database;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -24,7 +25,7 @@ public interface NotesDao {
     NoteEntity getNoteById(int id);
 
     @Query("SELECT * FROM notes ORDER BY date DESC")
-    List<NoteEntity> getAllNotes();
+    LiveData<List<NoteEntity>> getAllNotes();
 
     @Query("DELETE FROM notes")
     int deleteAllNotes();

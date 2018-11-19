@@ -1,5 +1,6 @@
 package com.saifi369.olschoolnotes.database;
 
+import android.arch.lifecycle.LiveData;
 import android.content.Context;
 import android.util.Log;
 
@@ -15,7 +16,7 @@ public class AppRepository {
     private static AppRepository ourInstance;
     private AppDatabase mDatabase;
 
-    public List<NoteEntity> mNotesList;
+    public LiveData<List<NoteEntity>> mNotesList;
     private Executor mExecutor = Executors.newSingleThreadExecutor();
 
 
@@ -24,8 +25,8 @@ public class AppRepository {
     }
 
     private AppRepository(Context context) {
-        mNotesList=SampleDataProvider.getSampleData();
         mDatabase=AppDatabase.getInstance(context);
+        mNotesList=getAllNotes();
 
     }
 
@@ -34,9 +35,11 @@ public class AppRepository {
         mExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                mDatabase.notesDao().insertAll(mNotesList);
+                mDatabase.notesDao().insertAll(SampleDataProvider.getSampleData());
             }
         });
-
+    }
+    private LiveData<List<NoteEntity>> getAllNotes(){
+       return mDatabase.notesDao().getAllNotes();
     }
 }

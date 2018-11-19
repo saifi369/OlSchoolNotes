@@ -2,6 +2,7 @@ package com.saifi369.olschoolnotes.viewmodels;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 
 import com.saifi369.olschoolnotes.database.AppRepository;
@@ -13,7 +14,7 @@ import java.util.List;
 
 public class ListActivityViewModel extends AndroidViewModel {
 
-    public List<NoteEntity> mNotesList;
+    public LiveData<List<NoteEntity>> mNotesList;
     private AppRepository mRepository;
 
     public ListActivityViewModel(@NonNull Application application) {
